@@ -56,6 +56,8 @@ packages.
 ## example
 
 ```js
+const npmInstallTo = require('npm-install-to')
+
 npmInstallTo(`${process.env.HOME}/test-dir`, [
   'treis@2.6.0',
   'ramda@latest',
