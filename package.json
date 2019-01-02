@@ -10,8 +10,10 @@
   "author": "Raine Virta <raine.virta@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "debug": "^4.1.1",
     "global-npm": "^0.3.0",
-    "lodash.frompairs": "^4.0.1"
+    "npm-package-arg": "^6.1.0",
+    "p-filter": "^1.0.0"
   },
   "files": [
     "index.js",
