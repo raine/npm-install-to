@@ -1,13 +1,17 @@
 {
   "name": "npm-install-to",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Install npm modules programmatically to given path",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch"
   },
-  "keywords": ["npm", "npm install", "api"],
+  "keywords": [
+    "npm",
+    "npm install",
+    "api"
+  ],
   "author": "Raine Virta <raine.virta@gmail.com>",
   "license": "MIT",
   "repository": "raine/npm-install-to",
