@@ -1,9 +1,8 @@
 # npm-install-to [![Build Status](https://travis-ci.com/raine/npm-install-to.svg?branch=master)](https://travis-ci.com/raine/npm-install-to)
 
-## introduction
+Provides an API for `npm install` through globally installed npm.
 
-`npm-install-to` is a library that provides an API for `npm install` through
-globally installed npm.
+## introduction
 
 ### key features
 
