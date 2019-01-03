@@ -7,6 +7,7 @@ globally installed npm.
 
 ### key features
 
+- does not introduce npm as dependency, by using globally installed npm
 - allows installing modules to a specific directory
 - optimized for performance: calling with already installed packages should be
   as quick as possible
@@ -88,3 +89,10 @@ npmInstallTo(`${process.env.HOME}/test-dir`, [
   .then(console.log)
   .catch(console.log)
 ```
+
+## debugging
+
+Uses [`debug`](https://github.com/visionmedia/debug/) for debugging messages.
+
+Enabling them with `export DEBUG=npm-install-to` might provide helpful
+information.
