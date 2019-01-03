@@ -67,6 +67,19 @@ const shouldInstallPackage = (installPath) => async (packageSpec) => {
       }`
     )
     return pkg ? false : true
+  } else if (npa.type === 'git') {
+    const pkg = await findMatchingPkgJson(
+      installPath,
+      (_pkg) =>
+        _pkg._requested.type === 'git' &&
+        _pkg._requested.rawSpec === packageSpec
+    )
+    debug(
+      `package.json matching git repo ${packageSpec} ${
+        !pkg ? 'not found, installing' : 'found, not installing'
+      }`
+    )
+    return pkg ? false : true
   } else {
     const pkgJsonPath = path.join(
       installPath,
@@ -132,7 +145,8 @@ const npmInstallTo = async (installPath, packages, npmLoadOpts = {}) => {
   )
   debug(`installing`, pkgsToBeInstalled)
   let npmOutput = null
-  if (pkgsToBeInstalled.length) npmOutput = await install(npmLoadOpts, pkgsToBeInstalled)
+  if (pkgsToBeInstalled.length)
+    npmOutput = await install(npmLoadOpts, pkgsToBeInstalled)
 
   // Clear the cache for this memoized promise returning function, because
   // npm install would have changed contents of installPath
@@ -143,7 +157,9 @@ const npmInstallTo = async (installPath, packages, npmLoadOpts = {}) => {
     packages: fromPairs(
       zip(
         packages,
-        await Promise.all(packages.map(getPkgSpecInstalledLocation(installPath)))
+        await Promise.all(
+          packages.map(getPkgSpecInstalledLocation(installPath))
+        )
       )
     )
   }

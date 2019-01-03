@@ -46,10 +46,10 @@ npm install npm-install-to
 
 #### `npmInstallTo(installPath: string, packages: string[]): Promise<Object>`
 
-The argument of `packages` is a list of packages as strings, corresponding to
-how `npm install` command is given packages to be installed. More information on
-that available with `npm help install`. However at this time, git repo urls and
-directories are unlikely to work as arguments right now.
+The argument of `packages` is a list of package specs as strings, corresponding
+to how `npm install` command is given packages to be installed. More information
+on that available with `npm help install`. However at this time, directory paths
+may not work.
 
 Returned promise resolves to an object containing output from npm install, and
 locations of installed modules.
