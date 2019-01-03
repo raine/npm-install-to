@@ -1,4 +1,3 @@
-const { fork } = require('child_process')
 const path = require('path')
 const npmPackageArg = require('npm-package-arg')
 const fs = require('fs')
@@ -8,37 +7,14 @@ const readFile = util.promisify(fs.readFile)
 const fg = require('fast-glob')
 const zip = require('lodash.zip')
 const fromPairs = require('lodash.fromPairs')
-const pProps = require('p-props')
 const pFilter = require('p-filter')
 const pMemoize = require('p-memoize')
+const npmInstall = require('./lib/npm-install')
 
 const NPM_OPTS = {
   progress: false,
   loglevel: 'silent'
 }
-
-const install = (npmLoadOpts, packages) =>
-  new Promise((resolve, reject) => {
-    const child = fork('./npm-install-child.js', { silent: true })
-    let output = ''
-    child.stdout.on('data', (chunk) => {
-      output += chunk.toString()
-    })
-    child.on('message', ({ type, data }) => {
-      if (type === 'ready') {
-        child.send({
-          type: 'install',
-          data: { npmLoadOpts, packages }
-        })
-      } else if (type === 'success') {
-        resolve(output.trim())
-        child.kill()
-      } else if (type === 'error') {
-        reject(new Error(data))
-        child.kill()
-      }
-    })
-  })
 
 const readJsonFile = (p) => readFile(p, 'utf8').then(JSON.parse)
 const firstDefined = (arr) => arr.find((x) => x !== undefined)
@@ -146,7 +122,7 @@ const npmInstallTo = async (installPath, packages, npmLoadOpts = {}) => {
   debug(`installing`, pkgsToBeInstalled)
   let npmOutput = null
   if (pkgsToBeInstalled.length)
-    npmOutput = await install(npmLoadOpts, pkgsToBeInstalled)
+    npmOutput = await npmInstall(npmLoadOpts, pkgsToBeInstalled)
 
   // Clear the cache for this memoized promise returning function, because
   // npm install would have changed contents of installPath

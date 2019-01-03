@@ -17,12 +17,11 @@
     "lodash.zip": "^4.2.0",
     "npm-package-arg": "^6.1.0",
     "p-filter": "^1.0.0",
-    "p-memoize": "^2.1.0",
-    "p-props": "^1.2.0"
+    "p-memoize": "^2.1.0"
   },
   "files": [
     "index.js",
-    "npm-install-child.js"
+    "lib/*.js"
   ],
   "devDependencies": {
     "taim": "^1.1.0"
