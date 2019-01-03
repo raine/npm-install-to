@@ -1,4 +1,4 @@
-# npm-install-to
+# npm-install-to [![Build Status](https://travis-ci.com/raine/npm-install-to.svg?branch=master)](https://travis-ci.com/raine/npm-install-to)
 
 ## introduction
 
