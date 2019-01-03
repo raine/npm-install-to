@@ -3,7 +3,6 @@ const npmPackageArg = require('npm-package-arg')
 const fs = require('fs')
 const util = require('util')
 const debug = require('debug')('npm-install-to')
-const readFile = util.promisify(fs.readFile)
 const fg = require('fast-glob')
 const zip = require('lodash.zip')
 const fromPairs = require('lodash.fromPairs')
@@ -16,6 +15,7 @@ const NPM_OPTS = {
   loglevel: 'silent'
 }
 
+const readFile = util.promisify(fs.readFile)
 const readJsonFile = (p) => readFile(p, 'utf8').then(JSON.parse)
 const firstDefined = (arr) => arr.find((x) => x !== undefined)
 const isTarball = (str) => str.endsWith('.tgz') || str.endsWith('.tar.gz')
