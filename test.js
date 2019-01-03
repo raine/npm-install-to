@@ -1,8 +1,12 @@
 const npmInstallTo = require('.')
+const taim = require('taim')
 
-npmInstallTo(
+taim('npmInstallTo', npmInstallTo)(
   `${process.env.HOME}/testing`,
-  ['treis', 'ramda@latest']
+  [
+    'ramda@0.26.1',
+    '/Users/raine/code/npm-install-to/treis-2.6.0.tgz'
+  ]
 )
 .then(console.log)
 .catch(console.log)

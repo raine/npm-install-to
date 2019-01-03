@@ -11,12 +11,20 @@
   "license": "MIT",
   "dependencies": {
     "debug": "^4.1.1",
+    "fast-glob": "^2.2.4",
     "global-npm": "^0.3.0",
+    "lodash.frompairs": "^4.0.1",
+    "lodash.zip": "^4.2.0",
     "npm-package-arg": "^6.1.0",
-    "p-filter": "^1.0.0"
+    "p-filter": "^1.0.0",
+    "p-memoize": "^2.1.0",
+    "p-props": "^1.2.0"
   },
   "files": [
     "index.js",
     "npm-install-child.js"
-  ]
+  ],
+  "devDependencies": {
+    "taim": "^1.1.0"
+  }
 }

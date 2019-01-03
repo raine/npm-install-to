@@ -8,7 +8,8 @@ globally installed npm.
 ### key features
 
 - allows installing modules to a specific directory
-- cache mechanism
+- optimized for performance: calling with already installed packages should be
+  as quick as possible
 
 ### caching
 
@@ -43,15 +44,36 @@ npm install npm-install-to
 
 ## usage
 
-#### `npmInstallTo(installPath: string, packages: string[]): Promise`
+#### `npmInstallTo(installPath: string, packages: string[]): Promise<Object>`
 
 The argument of `packages` is a list of packages as strings, corresponding to
 how `npm install` command is given packages to be installed. More information on
-that available with `npm help install`. However, git repo urls, tarballs and
+that available with `npm help install`. However at this time, git repo urls and
 directories are unlikely to work as arguments right now.
 
-Returned promise resolves with output from npm running install with given
-packages.
+Returned promise resolves to an object containing output from npm install, and
+locations of installed modules.
+
+For example, given the input:
+
+```js
+npmInstallTo(`/path/to/dir`, [
+  'treis@2.6.0',
+  'ramda@latest',
+  'lodash'
+])
+```
+
+The resolved object might look as follows:
+
+```js
+{ npmOutput:
+   '+ ramda@0.26.1\n+ treis@2.6.0\n+ lodash@4.17.11\nadded 1 package from 2 contributors, updated 2 packages and audited 713 packages in 1.854s\nfound 0 vulnerabilities',
+  packages:
+  { 'treis@2.6.0': '/path/to/dir/node_modules/treis',
+    'ramda@latest': '/path/to/dir/node_modules/ramda',
+    lodash: '/path/to/dir/node_modules/lodash' } }
+```
 
 ## example
 
