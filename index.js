@@ -72,18 +72,18 @@ const shouldInstallPackage = (installPath) => async (packageSpec) => {
     }
   }
 
-  const checkProp = (prop, npa, pkg) => {
-    if (npa.type === prop && pkg._requested.type === prop) {
+  const checkType = (type, npa, pkg) => {
+    if (npa.type === type && pkg._requested.type === type) {
       if (npa.fetchSpec === pkg._requested.fetchSpec) {
         debug(
-          `${packageSpec} installed already with same ${prop} (${
+          `${packageSpec} installed already with same ${type} (${
             pkg._requested.fetchSpec
           })`
         )
         return false
       } else {
         debug(
-          `${packageSpec} installed with different ${prop} (${
+          `${packageSpec} installed with different ${type} (${
             pkg._requested.fetchSpec
           }), installing`
         )
@@ -93,9 +93,9 @@ const shouldInstallPackage = (installPath) => async (packageSpec) => {
   }
 
   return firstDefined([
-    checkProp('tag', npa, pkg),
-    checkProp('version', npa, pkg),
-    checkProp('range', npa, pkg),
+    checkType('tag', npa, pkg),
+    checkType('version', npa, pkg),
+    checkType('range', npa, pkg),
     true
   ])
 }
