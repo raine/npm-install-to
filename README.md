@@ -2,6 +2,8 @@
 
 Provides an API for `npm install` through globally installed npm.
 
+See also: [`runtime-npm-install`](https://github.com/raine/runtime-npm-install)
+
 ## introduction
 
 ### key features
@@ -95,3 +97,7 @@ Uses [`debug`](https://github.com/visionmedia/debug/) for debugging messages.
 
 Enabling them with `export DEBUG=npm-install-to` might provide helpful
 information.
+
+## related projects
+
+- [npmi](https://github.com/maxleiko/npmi)
