@@ -114,6 +114,7 @@ const getPkgSpecInstalledLocation = (installPath) => (pkgSpec) => {
 }
 
 const npmInstallTo = async (installPath, packages, npmLoadOpts = {}) => {
+  debug `install path: ${installPath}`
   npmLoadOpts = { ...NPM_OPTS, ...npmLoadOpts, prefix: installPath }
   const pkgsToBeInstalled = await pFilter(
     packages,
