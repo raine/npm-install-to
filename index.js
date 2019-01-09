@@ -113,13 +113,13 @@ const getPkgSpecInstalledLocation = (installPath) => (pkgSpec) => {
       )
 }
 
+const getPkgsToBeInstalled = (installPath, packages) =>
+  pFilter(packages, shouldInstallPackage(installPath))
+
 const npmInstallTo = async (installPath, packages, npmLoadOpts = {}) => {
   debug(`install path: ${installPath}`)
   npmLoadOpts = { ...NPM_OPTS, ...npmLoadOpts, prefix: installPath }
-  const pkgsToBeInstalled = await pFilter(
-    packages,
-    shouldInstallPackage(installPath)
-  )
+  const pkgsToBeInstalled = await getPkgsToBeInstalled(installPath, packages)
   debug(`installing`, pkgsToBeInstalled)
   let npmOutput = null
   if (pkgsToBeInstalled.length)
@@ -142,4 +142,7 @@ const npmInstallTo = async (installPath, packages, npmLoadOpts = {}) => {
   }
 }
 
-module.exports = npmInstallTo
+module.exports = {
+  npmInstallTo,
+  getPkgsToBeInstalled
+}

@@ -44,9 +44,11 @@ console.log for the duration of the npm install part.
 npm install npm-install-to
 ```
 
-## usage
+## API
 
-#### `npmInstallTo(installPath: string, packages: string[]): Promise<Object>`
+The module exports following functions:
+
+#### `npmInstallTo(installPath: string, packages: string[], options: Object): Promise<Object>`
 
 The argument of `packages` is a list of package specs as strings, corresponding
 to how `npm install` command is given packages to be installed. More information
@@ -59,7 +61,8 @@ locations of installed modules.
 For example, given the input:
 
 ```js
-npmInstallTo(`/path/to/dir`, [
+const { npmInstallTo } = require('npm-install-to')
+npmInstallTo('/path/to/dir', [
   'treis@2.6.0',
   'ramda@latest',
   'lodash'
@@ -77,10 +80,15 @@ The resolved object might look as follows:
     lodash: '/path/to/dir/node_modules/lodash' } }
 ```
 
+#### `getPkgsToBeInstalled(installPath: string, packages: string[]): Promise<string[]>`
+
+Use to check which given packages would be installed, if `npmInstallTo` were to
+be run with them.
+
 ## example
 
 ```js
-const npmInstallTo = require('npm-install-to')
+const { npmInstallTo } = require('npm-install-to')
 
 npmInstallTo(`${process.env.HOME}/test-dir`, [
   'treis@2.6.0',

@@ -1,4 +1,4 @@
-const npmInstallTo = require('../')
+const { npmInstallTo } = require('../')
 const util = require('util')
 const tempy = require('tempy')
 const fs = require('fs')

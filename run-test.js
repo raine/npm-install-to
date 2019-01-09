@@ -1,4 +1,4 @@
-const npmInstallTo = require('.')
+const { npmInstallTo } = require('.')
 const taim = require('taim')
 
 taim('npmInstallTo', npmInstallTo)(`${process.env.HOME}/testing`, [
