@@ -55,6 +55,16 @@ to how `npm install` command is given packages to be installed. More information
 on that available with `npm help install`. However at this time, directory paths
 may not work.
 
+##### `options: Object`
+
+```
+{ skipInstalledCheck: boolean }
+```
+
+`skipInstalledCheck` option controls whether `npmInstallTo` should check if
+given packages are already installed. This might be useful if you have already
+used `getPkgsToBeInstalled()` to perform the check yourself.
+
 Returned promise resolves to an object containing output from npm install, and
 locations of installed modules.
 

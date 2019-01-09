@@ -116,10 +116,16 @@ const getPkgSpecInstalledLocation = (installPath) => (pkgSpec) => {
 const getPkgsToBeInstalled = (installPath, packages) =>
   pFilter(packages, shouldInstallPackage(installPath))
 
-const npmInstallTo = async (installPath, packages, npmLoadOpts = {}) => {
+const DEFAULT_OPTIONS = {
+  skipInstalledCheck: false
+}
+
+const npmInstallTo = async (installPath, packages, opts = DEFAULT_OPTIONS) => {
   debug(`install path: ${installPath}`)
-  npmLoadOpts = { ...NPM_OPTS, ...npmLoadOpts, prefix: installPath }
-  const pkgsToBeInstalled = await getPkgsToBeInstalled(installPath, packages)
+  npmLoadOpts = { ...NPM_OPTS, prefix: installPath }
+  const pkgsToBeInstalled = opts.skipInstalledCheck
+    ? packages
+    : await getPkgsToBeInstalled(installPath, packages)
   debug(`installing`, pkgsToBeInstalled)
   let npmOutput = null
   if (pkgsToBeInstalled.length)
