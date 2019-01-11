@@ -57,13 +57,21 @@ may not work.
 
 ##### `options: Object`
 
-```
-{ skipInstall: string[] }
+```js
+{
+  // Exclude packages from being installed, but return them if already installed
+  skipInstall: string[],
+  // Force specific packages to be installed regardless of if they exist already
+  forceInstall: string[],
+}
 ```
 
 Use `skipInstall` option to exclude specific packages from being installed. They
 will still be in the return value, but the function won't check if they have to
 be installed.
+
+The option `forceInstall` can be used to schedule some packages to be installed
+regardless of if they are already installed with the same version.
 
 Returned promise resolves to an object containing output from npm install, and
 locations of installed modules.

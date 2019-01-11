@@ -117,21 +117,32 @@ const getPkgsToBeInstalled = (installPath, packages) =>
   pFilter(packages, shouldInstallPackage(installPath))
 
 const DEFAULT_OPTIONS = {
-  skipInstall: []
+  skipInstall: [],
+  forceInstall: []
 }
 
-const without = (xs, ys) => ys.filter((y) => !xs.includes(y))
+const without = (excluded, xs) => xs.filter((y) => !excluded.includes(y))
+const concatUniq = (xs, ys) => [...new Set(xs.concat(ys))]
 
 const npmInstallTo = async (installPath, packages, opts = {}) => {
   opts = { ...DEFAULT_OPTIONS, ...opts }
-  const {skipInstall} = opts
+  const { skipInstall, forceInstall } = opts
   debug(`install path: ${installPath}`)
   npmLoadOpts = { ...NPM_OPTS, prefix: installPath }
-  if (skipInstall.length) debug(`skipping install for ${JSON.stringify(skipInstall)}`)
-  const pkgsToBeInstalled = await getPkgsToBeInstalled(
-    installPath,
-    without(opts.skipInstall, packages)
+  if (skipInstall.length)
+    debug(`skipping install for ${JSON.stringify(skipInstall)}`)
+  if (forceInstall.length)
+    debug(`force installing ${JSON.stringify(forceInstall)}`)
+  const pkgsToBeInstalled = concatUniq(
+    await getPkgsToBeInstalled(
+      installPath,
+      without(opts.skipInstall, packages)
+    ),
+    // Force these to be installed regardless of if they are located in
+    // installPath
+    opts.forceInstall
   )
+
   debug(`installing`, pkgsToBeInstalled)
   let npmOutput = null
   if (pkgsToBeInstalled.length)
