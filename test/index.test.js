@@ -1,3 +1,7 @@
+
+const debug = require('debug')
+debug.enable('npm-install-to')
+
 jest.mock('../lib/npm-install');
 const npmInstall = require('../lib/npm-install')
 const { npmInstallTo } = require('../')
