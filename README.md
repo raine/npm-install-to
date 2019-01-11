@@ -58,12 +58,12 @@ may not work.
 ##### `options: Object`
 
 ```
-{ skipInstalledCheck: boolean }
+{ skipInstall: string[] }
 ```
 
-`skipInstalledCheck` option controls whether `npmInstallTo` should check if
-given packages are already installed. This might be useful if you have already
-used `getPkgsToBeInstalled()` to perform the check yourself.
+Use `skipInstall` option to exclude specific packages from being installed. They
+will still be in the return value, but the function won't check if they have to
+be installed.
 
 Returned promise resolves to an object containing output from npm install, and
 locations of installed modules.

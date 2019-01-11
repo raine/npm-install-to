@@ -117,15 +117,21 @@ const getPkgsToBeInstalled = (installPath, packages) =>
   pFilter(packages, shouldInstallPackage(installPath))
 
 const DEFAULT_OPTIONS = {
-  skipInstalledCheck: false
+  skipInstall: []
 }
 
-const npmInstallTo = async (installPath, packages, opts = DEFAULT_OPTIONS) => {
+const without = (xs, ys) => ys.filter((y) => !xs.includes(y))
+
+const npmInstallTo = async (installPath, packages, opts = {}) => {
+  opts = { ...DEFAULT_OPTIONS, ...opts }
+  const {skipInstall} = opts
   debug(`install path: ${installPath}`)
   npmLoadOpts = { ...NPM_OPTS, prefix: installPath }
-  const pkgsToBeInstalled = opts.skipInstalledCheck
-    ? packages
-    : await getPkgsToBeInstalled(installPath, packages)
+  if (skipInstall.length) debug(`skipping install for ${JSON.stringify(skipInstall)}`)
+  const pkgsToBeInstalled = await getPkgsToBeInstalled(
+    installPath,
+    without(opts.skipInstall, packages)
+  )
   debug(`installing`, pkgsToBeInstalled)
   let npmOutput = null
   if (pkgsToBeInstalled.length)

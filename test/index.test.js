@@ -1,3 +1,5 @@
+jest.mock('../lib/npm-install');
+const npmInstall = require('../lib/npm-install')
 const { npmInstallTo } = require('../')
 const util = require('util')
 const tempy = require('tempy')
@@ -5,19 +7,23 @@ const fs = require('fs')
 const readFile = util.promisify(fs.readFile)
 const readJsonFile = (p) => readFile(p, 'utf8').then(JSON.parse)
 
-test('installs a module', async () => {
+test('really installs a module', async () => {
+  npmInstall.mockImplementationOnce(jest.requireActual('../lib/npm-install'));
+
   const tempDir = tempy.directory()
-  const result = await npmInstallTo(tempDir, ['treis@2.6.0'])
+  const result = await npmInstallTo(tempDir, ['identity-function'])
 
   expect(result).toEqual(
     expect.objectContaining({
       npmOutput: expect.any(String),
       packages: {
-        'treis@2.6.0': `${tempDir}/node_modules/treis`
+        'identity-function': `${tempDir}/node_modules/identity-function`
       }
     })
   )
 
-  const pkg = await readJsonFile(`${tempDir}/node_modules/treis/package.json`)
-  expect(pkg.name).toBe('treis')
+  const pkg = await readJsonFile(
+    `${tempDir}/node_modules/identity-function/package.json`
+  )
+  expect(pkg.name).toBe('identity-function')
 }, 10000)
