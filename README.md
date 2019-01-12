@@ -50,10 +50,16 @@ The module exports following functions:
 
 #### `npmInstallTo(installPath: string, packages: string[], options: Object): Promise<Object>`
 
-The argument of `packages` is a list of package specs as strings, corresponding
-to how `npm install` command is given packages to be installed. More information
-on that available with `npm help install`. However at this time, directory paths
-may not work.
+##### `installPath: string`
+
+A path in the local filesystem where modules should be installed to. It does not
+have to exist.
+
+##### `packages: string[]`
+
+A list of packages as strings, corresponding to how `npm install` command is
+given packages to be installed. More information on that available with `npm
+help install`.
 
 ##### `options: Object`
 
