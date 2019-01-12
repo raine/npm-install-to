@@ -1,6 +1,6 @@
 {
   "name": "npm-install-to",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Install npm modules programmatically to given path",
   "main": "index.js",
   "scripts": {
